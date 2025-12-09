@@ -1,4 +1,4 @@
-# Veeam Service Provider Console 9.1 (VSPC) to Zabbix Integration
+# :snake: Veeam Service Provider Console 9.1 (VSPC) to Zabbix Integration
 
 This project provides a Python script to monitor **Veeam Backup & Replication jobs** and **Veeam Agent jobs** (both managed and standalone) from the **Veeam Service Provider Console (VSPC)** and send the status to **Zabbix** using Zabbix Sender.
 
