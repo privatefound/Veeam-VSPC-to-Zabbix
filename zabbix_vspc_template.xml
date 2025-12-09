@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.0</version>
+    <date>2023-10-27T10:00:00Z</date>
+    <groups>
+        <group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates/Applications</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>5a9876a1b2c34d5e9f01234567890abc</uuid>
+            <template>VSPC Integration</template>
+            <name>VSPC Integration</name>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>a1b2c3d4e5f678901234567890abcdef</uuid>
+                    <name>VSPC: Success Count</name>
+                    <type>TRAP</type>
+                    <key>vspc.stats.success_count</key>
+                    <delay>0</delay>
+                    <history>90d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>VSPC Stats</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>b2c3d4e5f678901234567890abcdef123</uuid>
+                    <name>VSPC: Failed Count</name>
+                    <type>TRAP</type>
+                    <key>vspc.stats.failed_count</key>
+                    <delay>0</delay>
+                    <history>90d</history>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>VSPC Stats</value>
+                        </tag>
+                    </tags>
+                    <triggers>
+                        <trigger>
+                            <uuid>c3d4e5f678901234567890abcdef1234</uuid>
+                            <expression>last(/VSPC Integration/vspc.stats.failed_count)&gt;0</expression>
+                            <name>VSPC: There are {ITEM.LASTVALUE} failed jobs</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <uuid>c3d4e5f678901234567890abcdef12345</uuid>
+                    <name>VSPC: Warning Count</name>
+                    <type>TRAP</type>
+                    <key>vspc.stats.warning_count</key>
+                    <delay>0</delay>
+                    <history>90d</history>
+                </item>
+                <item>
+                    <uuid>d4e5f678901234567890abcdef123456</uuid>
+                    <name>VSPC: Total Jobs</name>
+                    <type>TRAP</type>
+                    <key>vspc.stats.total_count</key>
+                    <delay>0</delay>
+                    <history>90d</history>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>e5f678901234567890abcdef12345678</uuid>
+                    <name>VSPC Jobs Discovery</name>
+                    <type>TRAP</type>
+                    <key>vspc.jobs.discovery</key>
+                    <delay>0</delay>
+                    <lifetime>30d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>f678901234567890abcdef1234567890</uuid>
+                            <name>Job Status: {#JOBNAME}</name>
+                            <type>TRAP</type>
+                            <key>vspc.job.status[{#JOBNAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>VSPC Jobs</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>0123456789abcdef0123456789abcdef</uuid>
+                                    <expression>find(/VSPC Integration/vspc.job.status[{#JOBNAME}],,"like","Failed")=1</expression>
+                                    <name>VSPC Job Failed: {#JOBNAME}</name>
+                                    <priority>HIGH</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <uuid>123456789abcdef0123456789abcdef0</uuid>
+                                    <expression>find(/VSPC Integration/vspc.job.status[{#JOBNAME}],,"like","Warning")=1</expression>
+                                    <name>VSPC Job Warning: {#JOBNAME}</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
