@@ -19,7 +19,7 @@ This project provides a Python script to monitor **Veeam Backup & Replication jo
 ### Python Dependencies
 Install the required python libraries:
 ```bash
-pip install requests pyzabbix urllib3
+pip install requests py-zabbix urllib3
 ```
 
 ## Installation
